@@ -1,2 +1,2 @@
-from src import RecognitionController
-from src import FacialRecognitionModel
+from .src import RecognitionController
+from .src import FacialRecognitionModel

@@ -1,2 +1,2 @@
-from controllers import RecognitionController
-from models import FacialRecognitionModel
+from .controllers import RecognitionController
+from .models import FacialRecognitionModel

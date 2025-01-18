@@ -1,1 +1,1 @@
-from recognition_controller import RecognitionController
+from .recognition_controller import RecognitionController

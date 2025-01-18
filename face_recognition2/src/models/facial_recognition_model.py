@@ -1,9 +1,14 @@
 import pickle
 import numpy as np
 import cv2
+import os
+
+current_directory = os.getcwd()
+model_path = os.path.join(current_directory, "face_recognition2/src/assets", "face_recognition_model.pkl")
+label_map_path = os.path.join(current_directory, "face_recognition2/src/assets", "label_map.pkl")
 
 class FacialRecognitionModel:
-    def __init__(self, model_path="face_recognition_model.pkl", label_map_path="label_map.pkl"):
+    def __init__(self, model_path=model_path, label_map_path=label_map_path):
         """Initialize the FacialRecognitionModel class.
         
         Args:

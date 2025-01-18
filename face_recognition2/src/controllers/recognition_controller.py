@@ -1,5 +1,5 @@
 import cv2
-from models import FacialRecognitionModel
+from ..models import FacialRecognitionModel
 
 class RecognitionController:
     def __init__(self):
