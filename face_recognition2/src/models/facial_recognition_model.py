@@ -23,7 +23,14 @@ class FacialRecognitionModel:
         self.label_map = None
         self.reverse_label_map = None
 
-        asyncio.run(self._load_model_and_labels())
+        # self._load_model_and_labels()
+
+    @classmethod
+    async def Init_FacialRecognitionModel(self):
+        object = FacialRecognitionModel()
+        await object._load_model_and_labels()
+        return object
+
 
     async def _load_model_and_labels(self):
         """Private method to load the trained model and label map."""
