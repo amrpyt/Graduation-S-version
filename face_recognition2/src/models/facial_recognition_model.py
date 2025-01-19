@@ -52,13 +52,13 @@ class FacialRecognitionModel:
         return resized_image.flatten().reshape(1, -1)
 
     def predict(self, image):
-        """Predict the label for a given image.
+        """Predict the class, name, and confidence for a given image.
         
         Args:
             image (numpy.ndarray): The input image.
         
         Returns:
-            dict: Prediction result containing label and confidence.
+            dict: Prediction result containing class, name, and confidence.
         """
         preprocessed_image = self.preprocess_image(image)
         probabilities = self.model.predict_proba(preprocessed_image)[0]
@@ -66,7 +66,11 @@ class FacialRecognitionModel:
         confidence = probabilities[predicted_label]
         label_name = self.reverse_label_map[predicted_label]
 
+        # Split label_name into class and name
+        person_class, person_name = label_name.split('/')
+
         return {
-            "label": label_name,
+            "class": person_class,
+            "name": person_name,
             "confidence": confidence
         }

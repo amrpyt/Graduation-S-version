@@ -1,8 +1,8 @@
 # from face_recognition2 import RecognitionController
 
-from middle_ware import DataPipeline
+# from middle_ware import DataPipeline
 from face_recognition2 import RecognitionController
 
 rc = RecognitionController()
 rc.start_recognition()
-yy
+print(rc.get_recognition_result())
