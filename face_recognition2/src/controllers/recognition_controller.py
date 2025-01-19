@@ -2,7 +2,7 @@ import cv2
 from ..models import FacialRecognitionModel
 from ..helpers import get_settings
 import json
-
+import asyncio
 
 class RecognitionController:
     def __init__(self):
@@ -45,8 +45,8 @@ class RecognitionController:
         self.camera.release()
         cv2.destroyAllWindows()
 
-    def get_recognition_result(self):
- 
+    async def get_recognition_result(self):
+        await asyncio.sleep(1)  # Simulate a delay
         recognition_result = {
             "class": self.result["class"],
             "name": self.result["name"],
