@@ -4,7 +4,6 @@ from ..helpers import get_settings
 import json
 import asyncio
 
-
 class RecognitionController:
     def __init__(self):
         """Initialize the RecognitionController class."""
@@ -16,15 +15,11 @@ class RecognitionController:
         """Start the facial recognition process using the webcam."""
         self.model =await FacialRecognitionModel.Init_FacialRecognitionModel()
 
-    async def start_recognition(self):
-        """Start the facial recognition process using the webcam."""
         if not self.camera.isOpened():
             print("Error: Could not access the camera.")
             return
 
         print("Press 'q' to quit.")
-
-        loop = asyncio.get_event_loop()
 
         while True:
             
