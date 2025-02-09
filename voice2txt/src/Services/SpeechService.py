@@ -1,5 +1,5 @@
 import speech_recognition as sr
-from googletrans import Translator
+from deep_translator import GoogleTranslator as Translator
 from models.SpeechModel import SpeechModel
 
 class SpeechService:
@@ -24,10 +24,10 @@ class SpeechService:
 
                         translation = None
                         if language == "ar-EG":
-                            translation = self.translator.translate(recognized_text, src="ar", dest="en").text
+                            translation = self.translator.translate(text= recognized_text, src="ar", dest="en")
                             print(f"Translation to English: {translation}")
                         elif language == "en-US":
-                            translation = self.translator.translate(recognized_text, src="en", dest="ar").text
+                            translation = self.translator.translate(text= recognized_text, src="en", dest="ar")
                             print(f"Translation to Arabic: {translation}")
 
                         return SpeechModel(recognized_text, language, translation)
