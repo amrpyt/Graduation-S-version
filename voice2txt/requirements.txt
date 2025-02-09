@@ -1,2 +1,3 @@
 speechrecognition==3.8.1
 googletrans==4.0.0-rc1
+pyaudio==0.2.11
