@@ -1,4 +1,4 @@
-from src.Services.SpeechService import SpeechService
+from Services.SpeechService import SpeechService
 
 class SpeechController:
     def __init__(self):
