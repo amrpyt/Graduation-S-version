@@ -35,8 +35,5 @@ You can also specify the language and input source:
 python main.py --language en --input microphone
 ```
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
-
 ## Contact
 For any questions or feedback, please contact at ammaryasser12603@gmail.com.
