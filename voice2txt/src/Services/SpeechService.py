@@ -8,7 +8,7 @@ class SpeechService:
         self.translator = Translator()
         self.languages = languages
 
-    def voice_to_text(self):
+    async def voice_to_text(self):
         with sr.Microphone() as source:
             print("Adjusting for ambient noise... Please wait.")
             self.recognizer.adjust_for_ambient_noise(source, duration=0.25)
