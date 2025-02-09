@@ -7,7 +7,6 @@ Voice2Text is a tool that converts spoken language into written text. It leverag
 - High accuracy speech recognition
 - Supports multiple languages
 - Real-time transcription
-- Easy integration with other applications
 
 ## Installation
 To install Voice2Text, follow these steps:
