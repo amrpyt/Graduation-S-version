@@ -1,5 +1,2 @@
-pydub
-speechrecognition
-pyaudio
-numpy
-scipy
+speechrecognition==3.8.1
+googletrans==4.0.0-rc1
