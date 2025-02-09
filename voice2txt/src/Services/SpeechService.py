@@ -1,6 +1,6 @@
 import speech_recognition as sr
 from googletrans import Translator
-from src.models.SpeechModel import SpeechModel
+from models.SpeechModel import SpeechModel
 
 class SpeechService:
     def __init__(self, languages=("en-US", "ar-EG")):
