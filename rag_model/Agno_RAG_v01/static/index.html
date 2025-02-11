@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG AI Agent</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8 text-center">RAG AI Agent</h1>
+        
+        <!-- File Upload Section -->
+        <div class="mb-8 bg-white p-6 rounded-lg shadow">
+            <h2 class="text-xl font-semibold mb-4">Upload Document</h2>
+            <form id="uploadForm" class="space-y-4">
+                <div class="flex items-center space-x-4">
+                    <input type="file" id="fileInput" class="flex-1 p-2 border rounded">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        Upload
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Query Section -->
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-xl font-semibold mb-4">Ask a Question</h2>
+            <div class="space-y-4">
+                <textarea id="questionInput" 
+                    class="w-full p-2 border rounded resize-none" 
+                    rows="3" 
+                    placeholder="Enter your question here..."></textarea>
+                <button id="askButton" 
+                    class="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                    Ask Question
+                </button>
+                <div id="answerBox" class="mt-4 p-4 bg-gray-50 rounded-lg hidden">
+                    <h3 class="font-semibold mb-2">Answer:</h3>
+                    <p id="answerText" class="whitespace-pre-wrap"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('/documents/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                alert(result.message);
+                fileInput.value = '';
+            } catch (error) {
+                alert('Error uploading file: ' + error.message);
+            }
+        });
+
+        document.getElementById('askButton').addEventListener('click', async () => {
+            const question = document.getElementById('questionInput').value;
+            if (!question) return;
+
+            const answerBox = document.getElementById('answerBox');
+            const answerText = document.getElementById('answerText');
+            
+            try {
+                const response = await fetch('/query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        question: question,
+                        k: 3
+                    })
+                });
+                const result = await response.json();
+                answerBox.classList.remove('hidden');
+                answerText.textContent = result.answer;
+            } catch (error) {
+                alert('Error getting answer: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html> 
