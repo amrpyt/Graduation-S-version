@@ -1,5 +1,7 @@
 .venv
 __pychache__
+pathenums.cpython-312.pyc
+PathEnums.cpython-312.pyc
 assets
 __init__.cpython-312.pyc
 .env
