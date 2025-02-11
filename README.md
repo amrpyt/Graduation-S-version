@@ -1,5 +1,5 @@
 # Graduation-FCAI-V2
-
+- to run the program run this `uvicorn main:app --host 0.0.0.0 --port 8000 --reload`
 A comprehensive AI system that combines multiple components for face recognition, voice-to-text conversion, and retrieval-augmented generation (RAG).
 
 ## Components

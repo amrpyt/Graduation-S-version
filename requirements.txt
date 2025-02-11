@@ -1,4 +1,6 @@
 opencv-python
+fastapi
+uvicorn
 scikit-learn
 pydantic-settings== 2.6.1
 speechrecognition==3.8.1

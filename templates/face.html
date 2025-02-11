@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition</title>
+</head>
+<body>
+    <h1>Face Recognition</h1>
+    <p>The face recognition process is ready.</p>
+    <button id="startRecognition">Start Recognition</button>
+    <button id="getResult">Get Recognition Result</button>
+    <p id="result">Recognition Result: None</p>
+
+    <script>
+        document.getElementById('startRecognition').addEventListener('click', async function() {
+            const response = await fetch('/face/start');
+            const data = await response.json();
+            document.getElementById('result').innerText = `Recognition Result: ${data.result}`;
+        });
+
+        document.getElementById('getResult').addEventListener('click', async function() {
+            const response = await fetch('/face/result');
+            const data = await response.json();
+            document.getElementById('result').innerText = `Recognition Result: ${data.result}`;
+        });
+    </script>
+</body>
+</html>
