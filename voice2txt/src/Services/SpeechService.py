@@ -24,10 +24,10 @@ class SpeechService:
 
                         translation = None
                         if language == "ar-EG":
-                            translation = self.translator.translate(text= recognized_text, src="ar", dest="en")
+                            translation = self.translator.translate(text= recognized_text, src="ar-EG", dest="en-US")
                             print(f"Translation to English: {translation}")
                         elif language == "en-US":
-                            translation = self.translator.translate(text= recognized_text, src="en", dest="ar")
+                            translation = self.translator.translate(text= recognized_text, src="en-US", dest="ar-EG")
                             print(f"Translation to Arabic: {translation}")
 
                         return SpeechModel(recognized_text, language, translation)
