@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from fastapi.responses import HTMLResponse
 from face_recognition2 import RecognitionController
-
+from .pathEnums import PathEnums
 
 router = APIRouter()
 rc = RecognitionController()
@@ -9,7 +9,7 @@ rc = RecognitionController()
 @router.get("/", response_class=HTMLResponse)
 async def face_recognition_page():
     """Serve the HTML page for face recognition."""
-    with open("/home/xxx/projects/Graduation-FCAI-V2/templates/face.html", "r") as file:
+    with open(PathEnums.facetemplate.value, "r") as file:
         html_content = file.read()
     return HTMLResponse(content=html_content)
 
