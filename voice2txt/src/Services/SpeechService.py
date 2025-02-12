@@ -1,14 +1,14 @@
 import speech_recognition as sr
-from deep_translator import GoogleTranslator as Translator
-from models.SpeechModel import SpeechModel
+from deep_translator import GoogleTranslator 
+from ..models.SpeechModel import SpeechModel
 
 class SpeechService:
     def __init__(self, languages=("en-US", "ar-EG")):
         self.recognizer = sr.Recognizer()
-        self.translator = Translator()
+        self.translator = GoogleTranslator()
         self.languages = languages
 
-    async def voice_to_text(self):
+    def voice_to_text(self):
         with sr.Microphone() as source:
             print("Adjusting for ambient noise... Please wait.")
             self.recognizer.adjust_for_ambient_noise(source, duration=0.25)
@@ -24,10 +24,10 @@ class SpeechService:
 
                         translation = None
                         if language == "ar-EG":
-                            translation = self.translator.translate(text= recognized_text, src="ar", dest="en")
+                            translation = self.translator.translate(text= recognized_text, src="ar-EG", dest="en-US")
                             print(f"Translation to English: {translation}")
                         elif language == "en-US":
-                            translation = self.translator.translate(text= recognized_text, src="en", dest="ar")
+                            translation = self.translator.translate(text= recognized_text, src="en-US", dest="ar-EG")
                             print(f"Translation to Arabic: {translation}")
 
                         return SpeechModel(recognized_text, language, translation)

@@ -1,10 +1,10 @@
 import asyncio
-from Controllers.SpeechController import SpeechController
+from .Controllers.SpeechController import SpeechController
 
 async def main():
     try:
         speech_controller = SpeechController()
-        result = await speech_controller.process_speech()
+        result = speech_controller.process_speech()
         
         # Print the result
         print("Result:", result)
@@ -13,4 +13,4 @@ async def main():
         print(f"An error occurred: {str(e)}")
 
 if __name__ == "__main__":
-   asyncio.run(main())
+  asyncio.run(main())

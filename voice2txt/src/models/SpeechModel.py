@@ -5,7 +5,7 @@ class SpeechModel:
         self.language = language if language else ""
         self.translation = translation if translation else ""
 
-    async def to_dict(self):
+    def to_dict(self):
                 
         return {
             "text": self.text,
