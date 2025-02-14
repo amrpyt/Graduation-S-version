@@ -54,4 +54,5 @@ class RecognitionController:
             "name": self.result["name"],
             "confidence": self.result["confidence"]
         }
+        print("recognition_result", recognition_result)
         return json.dumps(recognition_result)

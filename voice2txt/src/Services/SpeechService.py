@@ -8,7 +8,7 @@ class SpeechService:
         self.translator = GoogleTranslator()
         self.languages = languages
 
-    def voice_to_text(self):
+    async def voice_to_text(self):
         with sr.Microphone() as source:
             print("Adjusting for ambient noise... Please wait.")
             self.recognizer.adjust_for_ambient_noise(source, duration=0.25)
@@ -26,7 +26,7 @@ class SpeechService:
                         if language == "ar-EG":
                             translation = self.translator.translate(text= recognized_text, src="ar-EG", dest="en-US")
                             print(f"Translation to English: {translation}")
-                        elif language == "en-US":
+                        if language == "en-US":
                             translation = self.translator.translate(text= recognized_text, src="en-US", dest="ar-EG")
                             print(f"Translation to Arabic: {translation}")
 

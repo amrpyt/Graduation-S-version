@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice to Text</title>
+</head>
+<body>
+    <h1>processing center</h1>
+    <button id="start">Start</button>
+    <button id="getResult">Get Recognition Result</button>
+    <p><strong>Result_f:</strong> <span id="f"></span></p>
+    <p><strong>Result_v:</strong> <span id="v"></span></p>
+
+    <script>
+        document.getElementById("start").addEventListener("click", async function() {
+    try {
+        let response = await fetch("/process/start");  // Ensure the endpoint is correct
+        let data = await response.json();      // Parse JSON response
+        
+        // Display results in HTML
+        document.getElementById("f").textContent = data.result_f;
+        document.getElementById("v").textContent = data.result_v;
+
+    } catch (error) {
+        console.error("Error:", error);
+        document.getElementById("f").textContent = "Error processing face recognition.";
+        document.getElementById("v").textContent = "Error processing speech.";
+    }
+    document.getElementById('getResult').addEventListener('click', async function() {
+            const response = await fetch('/face/result');
+            const data = await response.json();
+            document.getElementById('result').innerText = `Recognition Result: ${data.result_f}`;
+        });
+
+});
+    </script>
+</body>
+</html>
