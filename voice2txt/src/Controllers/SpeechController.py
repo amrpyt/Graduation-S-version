@@ -3,6 +3,7 @@ import json
 
 class SpeechController:
     def __init__(self):
+        """Initialize the SpeechController."""
         try:
             self.service = SpeechService()
         except Exception as e:
@@ -10,20 +11,27 @@ class SpeechController:
             self.service = None
 
     async def process_speech(self):
+        """Process speech input with error handling."""
         try:
             if self.service is None:
-                # Return dummy response if service isn't available
                 return {
-                    "text": "Speech recognition is not available",
-                    "error": "Speech service initialization failed"
+                    "text": None,
+                    "error": "Speech service not available"
                 }
             
             result = await self.service.voice_to_text()
+            if "error" in result:
+                print(f"Speech recognition error: {result['error']}")
+                return {
+                    "text": None,
+                    "error": result["error"]
+                }
+
             return result
 
         except Exception as e:
-            print(f"Speech recognition error: {str(e)}")
+            print(f"Speech processing error: {str(e)}")
             return {
-                "text": "Speech recognition encountered an error",
+                "text": None,
                 "error": str(e)
             }

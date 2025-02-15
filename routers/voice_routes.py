@@ -5,7 +5,6 @@ from .pathEnums import PathEnums
 
 router = APIRouter()
 
-
 @router.get("/", response_class=HTMLResponse)
 async def voice_text_page():
     """Serve the HTML page for face recognition."""
@@ -16,11 +15,11 @@ async def voice_text_page():
 @router.get("/start")
 async def start_recording():
     """Start the face recognition process and return a result."""
-    result =  SpeechController().process_speech() 
+    result = SpeechController().process_speech() 
     return {"status": "completed", "result": result}
 
 @router.get("/result")
 async def get_recording_result():
     """Fetch the recognition result without starting the process."""
-    result = await start_recording().result
+    result = await start_recording()
     return {"status": "fetched", "result": result}
