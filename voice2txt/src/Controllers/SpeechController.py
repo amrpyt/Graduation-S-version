@@ -1,4 +1,5 @@
 from ..Services.SpeechService import SpeechService
+import json
 
 
 class SpeechController:
@@ -7,4 +8,4 @@ class SpeechController:
 
     async def process_speech(self):
         result = await self.service.voice_to_text()
-        return await result.to_dict()
+        return result # TODO: Return the result in the desired JSON format
