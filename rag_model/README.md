@@ -1,1 +1,0 @@
-# Check big_RAG folder
