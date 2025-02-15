@@ -1,8 +1,14 @@
-opencv-python
-fastapi
-uvicorn
-scikit-learn
-pydantic-settings== 2.6.1
+opencv-python>=4.11.0
+fastapi>=0.115.0
+uvicorn>=0.34.0
+scikit-learn>=1.6.0
+pydantic-settings==2.6.1
 speechrecognition==3.8.1
 googletrans==4.0.0-rc1
-pyaudio==0.2.11
+pyaudio>=0.2.14
+httpx==0.13.3
+python-dotenv>=1.0.0
+numpy>=2.2.0
+scipy>=1.15.0
+setuptools>=75.8.0
+wheel>=0.45.1
