@@ -9,43 +9,66 @@ class RecognitionController:
         """Initialize the RecognitionController class."""
     
         self.result = None
+        self.model = None
+        self.camera = None
+
+    async def initialize_camera(self):
+        """Initialize the camera and model."""
+        # Always close any existing camera first
+        if self.camera is not None:
+            self.camera.release()
+            
+        # Create new camera instance
         self.camera = cv2.VideoCapture(get_settings().CAMER_INPUT)
-
-    async def start_recognition(self):
-        """Start the facial recognition process using the webcam."""
-        self.model =await FacialRecognitionModel.Init_FacialRecognitionModel()
-
         if not self.camera.isOpened():
             print("Error: Could not access the camera.")
-            return
-
-        print("Press 'q' to quit.")
-
-        while True:
+            return False
             
-            ret, frame = self.camera.read()
-            if not ret:
-                print("Error: Failed to capture image.")
-                break
+        # Let the camera warm up
+        await asyncio.sleep(0.5)
+        return True
 
-            # Predict using the model
-            self.result =await self.model.predict(frame)
-            label = self.result["name"]
-            person_class = self.result["class"]
-            confidence = self.result["confidence"]
+    async def start_recognition(self):
+        """Capture a single frame and perform recognition."""
+        try:
+            if self.model is None:
+                self.model = await FacialRecognitionModel.Init_FacialRecognitionModel()
 
-            # Overlay the prediction on the frame
-            text = f"{label} ({person_class}, {confidence * 100:.2f}%)"
-            cv2.putText(frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-            cv2.imshow("Facial Recognition", frame)
-            await asyncio.sleep(0.000001)
-            # Exit on 'q' key press
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
+            # Initialize camera
+            if not await self.initialize_camera():
+                return None
+
+            # Try to capture frame multiple times if needed
+            ret = False
+            frame = None
+            for attempt in range(3):
+                ret, frame = self.camera.read()
+                if ret and frame is not None:
+                    break
+                await asyncio.sleep(0.2)
+            
+            if not ret or frame is None:
+                print("Error: Failed to capture image after multiple attempts.")
+                return None
+
+            # Process the frame
+            self.result = await self.model.predict(frame)
+            return self.result
+
+        finally:
+            # Always release the camera
+            if self.camera is not None:
+                self.camera.release()
+                self.camera = None
+
+
+        # Predict using the model
+        self.result = await self.model.predict(frame)
         
-        # Release resources
+        # Release the camera
         self.camera.release()
-        cv2.destroyAllWindows()
+        
+        return self.result
 
     async def get_recognition_result(self):
         print("hello from get_recognition_result")
@@ -55,4 +78,4 @@ class RecognitionController:
             "confidence": self.result["confidence"]
         }
         print("recognition_result", recognition_result)
-        return json.dumps(recognition_result)
+        return recognition_result
